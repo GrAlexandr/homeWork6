@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+
+	<title>GeekHub homework_6</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,600" rel="stylesheet">
+	<link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrapper">
+
+	<header class="header">
+		<div class="logo">
+			<h2 class="blink1">TODO list</h2>
+		</div>
+		<div class="input">
+			<label for="input_text"></label>
+			<input type="text" id="input_text" placeholder="Введите задание" maxlength="50">
+			<button type="button" id="add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+		</div>
+	</header>
+
+	<nav class="nav">
+		<input type="button" id="edit" class="btn" value="Редакриторавать">
+		<input type="button" id="rev" class="btn" value="Реверс">
+		<input type="button" id="del" class="btn"  value="УдалитьВыполненные">
+		<input type="button" id="delAll" class="btn"  value="УдалитьВсё">
+		<input type="button" id="clear" class="btn" value="ОчиститьПоле">
+	</nav>
+
+	<div class="tasks" id="task"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
