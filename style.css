@@ -155,9 +155,17 @@ input[type="checkbox"] {
 .delete:hover {
 	background: #7f1121;
 }
+.crossOut {
+	text-decoration: line-through;
+}
 @media screen and (max-width: 400px){
 	.logo h2 {
 		margin: 5px;
 		font-size: 16px;
 	}
+}
+.divMove {
+	background-color: #145a80;
+	border-top: 1px solid #7f1121;
+	opacity: 0.9;
 }

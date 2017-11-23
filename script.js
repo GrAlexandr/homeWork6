@@ -4,12 +4,11 @@ var arrTodo = JSON.parse(localStorage.getItem('todo')),
 		add = elem.getElementById('add'),
 		edit = elem.getElementById('edit'),
 		rev = elem.getElementById('rev'),
-		del = elem.getElementById('del'),
+		delSelected = elem.getElementById('del'),
 		delAll = elem.getElementById('delAll'),
 		clear = elem.getElementById('clear'),
 		task = elem.getElementById('task'),
-		row = elem.getElementById('row'),
-		checkBox = elem.querySelectorAll('input[checked]');
+		row = elem.getElementById('row');
 
 if (arrTodo) {
 	showTask();
@@ -24,12 +23,31 @@ add.onclick = function () {
 
 	var todo = {
 		text: inp.value,
-		date: dateConversion()
+		date: dateConversion(),
+		check: false,
+		decor: ''
 	};
+
 	arrTodo.push(todo);
 
 	localStorage.setItem('todo', JSON.stringify(arrTodo));
 	window.location.reload();
+};
+
+edit.onclick = function () {
+	var sum = 0;
+	for(var i = 0; i< arrTodo.length; i++) {
+		sum += arrTodo[i].check;
+	}
+	if(sum > 1) {
+		alert('Выберите только одно задание!');
+	} else if(sum === 0) {
+		alert('Выберите задание для редактирования!');
+	}	else {
+		arrTodo.forEach(function (el) {
+			if(el.check === true)	inp.value = el.text;
+		});
+	}
 };
 
 rev.onclick = function() {
@@ -38,11 +56,21 @@ rev.onclick = function() {
 	window.location.reload();
 };
 
+delSelected.onclick = function () {
+	arrTodo.forEach(function (el, i) {
+		if(el.check !== true) return;
+
+		arrTodo.splice(arrTodo.indexOf(el), 1);
+		localStorage.setItem('todo', JSON.stringify(arrTodo));
+	});
+	window.location.reload();
+};
+
 delAll.onclick = function() {
 	if(!task.firstChild) {
 		alert('The list is empty!');
 	} else {
-		localStorage.clear();
+		localStorage.removeItem("todo");
 	}
 	window.location.reload();
 };
@@ -52,32 +80,52 @@ clear.onclick = function() {
 };
 
 function showTask() {
-	arrTodo.forEach(function (el, i){
-		var div = document.createElement('div');
+	arrTodo.forEach(function(el, i) {
+		var div = elem.createElement('div');
 		div.setAttribute('id', i);
 		div.setAttribute('class', 'rows');
+		div.setAttribute('draggable', 'true');
 
-		var spanTime = document.createElement('span');
-		var textTime = document.createTextNode(el.date);
+		var spanTime = elem.createElement('span');
+		var textTime = elem.createTextNode(el.date);
 		spanTime.setAttribute('class', 'time');
 		spanTime.appendChild(textTime);
 		div.appendChild(spanTime);
 
-		var span = document.createElement('h2');
+		var span = elem.createElement('h3');
 		span.setAttribute('class', 'inp-val');
-		span.innerText = el.text;
+		span.textContent = el.text;
 		div.appendChild(span);
+		span.style.textDecorationLine = el.decor;
 
-		var inputCh = document.createElement('input');
+		var inputCh = elem.createElement('input');
 		inputCh.setAttribute('type', 'checkbox');
 		div.appendChild(inputCh);
+		inputCh.checked = el.check;
 
-		var buttonDel = document.createElement('button');
+		var buttonDel = elem.createElement('button');
 		buttonDel.setAttribute('class', 'delete');
-		buttonDel.innerText = 'Del';
+		buttonDel.textContent = 'Del';
+
+		addDnD(div);
 
 		div.append(buttonDel);
 		task.append(div);
+
+		inputCh.onchange = function (e) {
+			if(e.target.checked)	{
+				e.target.setAttribute('checked','checked');
+				arrTodo[e.target.parentNode.id].check = true;
+				span.style.textDecorationLine = 'line-through';
+				arrTodo[e.target.parentNode.id].decor = 'line-through';
+			} else {
+				e.target.removeAttribute('checked');
+				arrTodo[e.target.parentNode.id].check = false;
+				span.style.textDecorationLine = '';
+				arrTodo[e.target.parentNode.id].decor = '';
+			}
+			localStorage.setItem('todo', JSON.stringify(arrTodo));
+		};
 
 		buttonDel.onclick = function (e) {
 			e.target.parentNode.remove();
@@ -87,15 +135,62 @@ function showTask() {
 	});
 }
 
+function drag(e) {
+	element = this;
+	e.dataTransfer.effectAllowed = "move";
+	e.currentTarget.classList.add('divMove');
+	e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function drop(e) {
+	var tasks = elem.querySelectorAll('.rows');
+			arrTodo = [];
+
+	element.innerHTML = this.innerHTML;
+	this.innerHTML = e.dataTransfer.getData('text/html');
+
+	tasks.forEach(function (element) {
+		var todo = {
+			date: element.children[0].textContent,
+			text: element.children[1].textContent,
+			check: element.children[2].checked,
+			decor: element.children[3].style.textDecorationLine
+		};
+		if(element.children[2].checked === true) {
+			element.children[3].style.textDecorationLine = 'line-through';
+			todo.check = true;
+			todo.decor = 'line-through';
+		} else {
+			element.children[3].style.textDecorationLine = '';
+			todo.check = false;
+			todo.decor = '';
+		}
+		arrTodo.push(todo);
+	});
+	localStorage.setItem('todo', JSON.stringify(arrTodo));
+	window.location.reload();
+}
+
+function addDnD(element) {
+	element.addEventListener('dragstart', drag, false);
+	element.addEventListener('dragenter', function (e) {
+		e.currentTarget.classList.remove('divMove');
+	}, false);
+	element.addEventListener('dragover', function (e) {
+		e.preventDefault()
+	}, false);
+	element.addEventListener('drop', drop, false);
+}
+
 function dateConversion() {
 	var Data = new Date(),
-		Year = Data.getFullYear(),
-		Month = Data.getMonth(),
-		Day = Data.getDate(),
-		Hour = Data.getHours(),
-		Minutes = Data.getMinutes(),
-		Seconds = Data.getSeconds(),
-		dateInput;
+			Year = Data.getFullYear(),
+			Month = Data.getMonth(),
+			Day = Data.getDate(),
+			Hour = Data.getHours(),
+			Minutes = Data.getMinutes(),
+			Seconds = Data.getSeconds(),
+			dateInput;
 
 	switch (Month) {
 		case 0: fMonth="января"; break;
