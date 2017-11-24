@@ -168,7 +168,6 @@ function drop(e) {
 		arrTodo.push(todo);
 	});
 	localStorage.setItem('todo', JSON.stringify(arrTodo));
-	window.location.reload();
 }
 
 function addDnD(element) {
