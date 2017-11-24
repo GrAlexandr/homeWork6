@@ -9,11 +9,17 @@ button {
 	cursor: pointer;
 }
 .wrapper {
+	position: relative;
 	max-width: 100%;
 	height: auto;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
+}
+.fixed {
+	position: fixed;
+	width: 100%;
+	z-index: 100;
 }
 .header {
 	width: 100%;
@@ -111,9 +117,12 @@ button {
 .tasks {
 	width: 100%;
 	min-height: 540px;
+	box-sizing: border-box;
 	padding: 20px;
 	order: 3;
 	background: #5aa4a3;
+	position: absolute;
+	top: 150px;
 }
 .rows {
 	height: 70px;

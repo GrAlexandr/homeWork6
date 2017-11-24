@@ -12,26 +12,26 @@
 </head>
 <body>
 <div class="wrapper">
+	<div class="fixed">
+		<header class="header">
+			<div class="logo">
+				<h2 class="blink1">TODO list</h2>
+			</div>
+			<div class="input">
+				<label for="input_text"></label>
+				<input type="text" id="input_text" placeholder="Введите задание" maxlength="50">
+				<button type="button" id="add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+			</div>
+		</header>
 
-	<header class="header">
-		<div class="logo">
-			<h2 class="blink1">TODO list</h2>
-		</div>
-		<div class="input">
-			<label for="input_text"></label>
-			<input type="text" id="input_text" placeholder="Введите задание" maxlength="50">
-			<button type="button" id="add"><i class="fa fa-plus" aria-hidden="true"></i></button>
-		</div>
-	</header>
-
-	<nav class="nav">
-		<input type="button" id="edit" class="btn" value="Редакриторавать">
-		<input type="button" id="rev" class="btn" value="Реверс">
-		<input type="button" id="del" class="btn"  value="УдалитьВыбранные">
-		<input type="button" id="delAll" class="btn"  value="УдалитьВсё">
-		<input type="button" id="clear" class="btn" value="ОчиститьПоле">
-	</nav>
-
+		<nav class="nav">
+			<input type="button" id="edit" class="btn" value="Редакриторавать">
+			<input type="button" id="rev" class="btn" value="Реверс">
+			<input type="button" id="del" class="btn"  value="УдалитьВыбранные">
+			<input type="button" id="delAll" class="btn"  value="УдалитьВсё">
+			<input type="button" id="clear" class="btn" value="ОчиститьПоле">
+		</nav>
+	</div>
 	<div class="tasks" id="task"></div>
 </div>
 
