@@ -92,7 +92,7 @@ function showTask() {
 		spanTime.appendChild(textTime);
 		div.appendChild(spanTime);
 
-		var span = elem.createElement('h3');
+		var span = elem.createElement('span');
 		span.setAttribute('class', 'inp-val');
 		span.textContent = el.text;
 		div.appendChild(span);
