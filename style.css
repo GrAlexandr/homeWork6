@@ -48,7 +48,7 @@ button {
 .input {
 	align-self: center;
 	width: 80%;
-	margin-right: 60px;
+	margin-right: 110px;
 }
 #input_text {
 	width: 100%;
@@ -56,6 +56,7 @@ button {
 	position: relative;
 	box-sizing: border-box;
 	padding: 10px;
+	background: #b9b9b9;
 	border-top-right-radius: 25px;
 	border-bottom-right-radius: 25px;
 	border-top-left-radius: 5px;
@@ -63,12 +64,31 @@ button {
 	border: none;
 	cursor: text;
 }
+#input_text:focus {
+	background: #d0d897;
+	outline: none;
+}
+#input_text::-webkit-input-placeholder {
+	color: #7f1121;
+	font-style: italic;
+	font-size: 14px;
+}
+#input_text::-moz-input-placeholder {
+	color: #7f1121;
+	font-style: italic;
+	font-size: 14px;
+}
+#input_text::-ms-input-placeholder {
+	color: #7f1121;
+	font-style: italic;
+	font-size: 14px;
+}
 #add {
 	width: 50px;
 	height: 50px;
 	position: absolute;
 	top: 25px;
-	right: 59px;
+	right: 109px;
 	border-radius: 25px;
 	background: #377181;
 	border: none;
@@ -155,6 +175,11 @@ input[type="checkbox"] {
 	position: absolute;
 	top: 30px;
 	left: -40px;
+	opacity: 0.5;
+}
+input[type="checkbox"]:hover {
+	width: 20px;
+	height: 20px;
 }
 .delete {
 	width: 35px;
@@ -163,7 +188,7 @@ input[type="checkbox"] {
 	border: none;
 	background: #848c61;
 	position: absolute;
-	top: 15px;
+	top: 30px;
 	right: -40px;
 }
 .delete:hover {
@@ -197,7 +222,21 @@ input[type="checkbox"] {
 	border-top: 1px solid #7f1121;
 	opacity: 0.9;
 }
+@media screen and (max-width: 800px){
+	.input {
+		margin-right: 30px;
+	}
+	#add {
+		right: 29px;
+	}
+}
 @media screen and (max-width: 700px){
+	.input {
+		margin-right: 10px;
+	}
+	#add {
+		right: 9px;
+	}
 	.nav {
 		min-height: 30px;
 	}
@@ -226,11 +265,16 @@ input[type="checkbox"] {
 		top: 25px;
 		left: -30px;
 	}
+	input[type="checkbox"]:hover {
+		width: 17px;
+		height: 17px;
+	}
 	.delete {
-		width: 30px;
-		height: 30px;
-		top: 10px;
+		width: 28px;
+		height: 28px;
+		top: 15px;
 		right: -33px;
+		font-size: 11px;
 	}
 }
 @media screen and (max-width: 580px){
